@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+
+
+{% block content %}
+<h1>{{title}}</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Название книги</th>
+      <th scope="col">Жанр книги</th>
+      <th scope="col">Язык книги</th>
+      <th scope="col">Автор книги</th>
+      <th scope="col">Аннотация книги</th>
+      <th scope="col">ISBN</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in books.all %}
+    <tr>
+      <td>{{ book.book.title }}</td>
+      <td>{{ book.book.genre }}</td>
+      <td>{{ book.book.language }}</td>
+      <td>
+      {% for author in book.book.author.all %}
+        <div>{{ author }}</div>
+      {% endfor %}
+      </td>
+      <td>{{ book.book.summary }}</td>
+      <td>{{ book.book.isbn }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock  %}

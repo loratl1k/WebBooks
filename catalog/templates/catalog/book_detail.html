@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+
+
+{% block content %}
+<h1>{{book.title}}</h1>
+  {% for author in book.author.all  %}
+    <p>
+      <b>Автор:</b>
+      {{author.last_name}} {{author.first_name}}
+    </p>
+  {% endfor %}
+  {{book.bookinstance_set.count}}
+  {% for copy in book.bookinstance_set.all %}
+  <p class="{% if copy.status.id == 1%} text-success
+  {%elif copy.status.id == 2%} text-danger
+  {%else%} text-warning
+  {%endif%}">
+  {{copy.status.id}}
+  {{copy.get_status_display}}
+  </p>
+
+  {% endfor %}
+  <div>
+    {% if in_compare %}
+
+    {% else %}
+    <a class="btn btn-primary" href="{% url 'catalog:to_compare' book.id %}"
+       role="button" />Добавить к сравнению
+    </a>
+    {% endif %}
+  </div>
+{% endblock  %}
